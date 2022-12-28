@@ -1,31 +1,50 @@
-Ansible Role - 
+Ansible Role - Doas
 =========
 
-A brief description of the role goes here.
+Ansible role to replace sudo with OpenDoas. 
 
-Requirements
-------------
+This role uninstalls sudo after it checks to make sure the syntax of doas.conf is correct. I am not responsible if you get locked out of root privileges due to a mistake you made in the contents of the doas conf file. Sudo will not be uninstalled if the syntax is incorrect in doas.conf.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Currently only supported on arch, use on other distros at your own risk. May add support for other distros in the future.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The following variables can be found in defaults/main.yml. If their defaults are not to your preference change them when calling the role as shown in the example playbook below.
 
-Dependencies
-------------
+`doas_conf: [ permit :wheel ]` - Array of lines to insert into doas.conf to configure doas. See [doas.conf(5)](https://man.archlinux.org/man/doas.conf.5) manpage for guidance on how to configure doas.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+`uninstall_sudo: true` - Whether to uninstall sudo after doas is installed and it's configuration is verified.
+
+`delete_sudoers: true` - Whether to delete the sudoers file which is the configuration file for sudo.
+
+The following variables can be found in vars/main.yml. They contain variables which do not need to be changed by the user unless the role is being used in an unsupported distro.
+
+`doas_package: opendoas` - Package name for doas.
+
+`doas_conf_file: /etc/doas.conf` - Configuration file for doas.
+
+`sudo_package: sudo` - Package name for sudo.
+
+`sudoers_file: /etc/sudoers` - Configuration file for sudo.
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+```yaml
+    - name: Replace sudo with doas keeping sudoers file
+      hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: doas
+          vars:
+            doas_conf:
+              - permit arthur
+              - deny joe
+              - permit persist :wheel
+            delete_sudoers: false
+```
 
 License
 -------
@@ -40,4 +59,6 @@ To contribute to the project please fork it, make your changes then open a pull 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Created by Daniel Lowry (dandyrow). 
+
+Email: [development@daniellowry.co.uk](mailto:development@daniellowry.co.uk)

@@ -1,2 +1,5 @@
 ---
-# vars file for template
+doas_package: opendoas
+doas_conf_file: /etc/doas.conf
+sudo_package: sudo
+sudoers_file: /etc/sudoers

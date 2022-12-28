@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% for conf_line in doas_conf %}
+{{ conf_line }}
+{% endfor %}
