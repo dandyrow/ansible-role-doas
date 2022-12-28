@@ -6,7 +6,7 @@ name: Release
 
 defaults:
   run:
-    working-directory: role_name
+    working-directory: doas
 
 jobs:
   release:
@@ -16,7 +16,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: role_name
+          path: doas
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2

@@ -1,2 +1,5 @@
 ---
-# defaults file for template
+doas_conf:
+  - permit :wheel
+uninstall_sudo: true
+delete_sudoers: true

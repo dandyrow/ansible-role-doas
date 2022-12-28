@@ -9,7 +9,7 @@ on:
 
 defaults:
   run:
-    working-directory: role_name
+    working-directory: doas
 
 jobs:
   lint:
@@ -19,7 +19,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: role_name
+          path: doas
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -40,17 +40,17 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu2204
-          - ubuntu2004
-          - debian11
-          - debian10
+          # - ubuntu2204
+          # - ubuntu2004
+          # - debian11
+          # - debian10
           - archlinux
 
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: zabbix_agent
+          path: doas
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2

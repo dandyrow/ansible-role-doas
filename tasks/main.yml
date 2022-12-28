@@ -1,2 +1,27 @@
 ---
-# tasks file for template
+- name: Install OpenDoas package
+  ansible.builtin.package: 
+    name: "{{ doas_package }}"
+    state: present
+
+- name: Copy doas config to {{ doas_conf_file }}
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/doas.j2"
+    dest: "{{ doas_conf_file }}"
+    owner: root
+    group: root
+    mode: '0400'
+
+- name: Check doas for config errors
+  ansible.builtin.command: doas -C /etc/doas.conf
+  changed_when: false
+
+- name: Remove sudo
+  ansible.builtin.package:
+    name: "{{ sudo_package }}"
+    state: absent
+
+- name: Remove sudoers config file
+  ansible.builtin.file:
+    path: "{{ sudoers_file }}"
+    state: absent
