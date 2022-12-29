@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: doas
   author: Daniel Lowry
   namespace: dandyrow
   description: Installs opendoas and removes sudo

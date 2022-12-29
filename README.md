@@ -1,7 +1,11 @@
 Ansible Role - Doas
 =========
 
-Ansible role to replace sudo with OpenDoas. 
+Ansible role to replace sudo with OpenDoas.
+
+Install from Ansible Galaxy using this command: ansible-galaxy install dandyrow.doas
+
+View Ansible Galaxy page [here](https://galaxy.ansible.com/dandyrow/doas).
 
 This role uninstalls sudo after it checks to make sure the syntax of doas.conf is correct. I am not responsible if you get locked out of root privileges due to a mistake you made in the contents of the doas conf file. Sudo will not be uninstalled if the syntax is incorrect in doas.conf.
 
@@ -27,6 +31,11 @@ The following variables can be found in vars/main.yml. They contain variables wh
 `sudo_package: sudo` - Package name for sudo.
 
 `sudoers_file: /etc/sudoers` - Configuration file for sudo.
+
+Supported Platforms
+-------------------
+
+* Arch Linux
 
 Example Playbook
 ----------------
